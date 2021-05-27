@@ -1,28 +1,59 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+        app
+        color="primary"
+        dark
+    >
+      <div class="d-flex align-center">
+        Package search
+      </div>
+      <v-spacer></v-spacer>
+    </v-app-bar>
+
+    <v-main>
+      <PackageSearch/>
+    </v-main>
+    <v-footer
+        padless
+        color="primary lighten-1"
+    >
+      <v-row
+          justify="center"
+          no-gutters
+      >
+        <v-btn
+            color="white"
+            text
+            rounded
+            class="my-2"
+        >
+          Author - Anton Akimov
+        </v-btn>
+        <v-col
+            class="primary lighten-2 py-4 text-center white--text"
+            cols="12"
+        >
+          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        </v-col>
+      </v-row>
+    </v-footer>
+
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PackageSearch from './components/PackageSearch';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    PackageSearch,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
