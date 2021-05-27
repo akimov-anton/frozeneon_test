@@ -46,7 +46,22 @@
               {{ packageDetailsInfo.description }}
             </div>
           </v-card-text>
-          <div class="mt-6">
+          <div v-if="packageDetailsInfo.versions && packageDetailsInfo.versions.length" class="text-caption mt-6">
+            Versions
+          </div>
+          <div>
+            <v-chip v-for="(version, key) in packageDetailsInfo.versions"
+                    :key="key"
+                    class="ma-2"
+                    label
+            >
+              {{ version }}
+            </v-chip>
+          </div>
+          <div v-if="packageDetailsInfo.keywords && packageDetailsInfo.keywords.length" class="text-caption mt-3">
+            Keywords
+          </div>
+          <div>
             <v-chip v-for="(keyword, key) in packageDetailsInfo.keywords"
                     :key="key"
                     class="ma-2"

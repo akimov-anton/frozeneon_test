@@ -27,7 +27,7 @@
             @click:row="clickRow"
         >
           <template v-slot:item.name="{ item }">
-            <a :href="item.links.npm">
+            <a :href="item.links.npm" target="_blank">
               {{ item.name }}
             </a>
           </template>
@@ -40,12 +40,18 @@
   </v-container>
 </template>
 
+<style>
+  .v-data-table tbody tr {
+    cursor: pointer;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import store from '../store';
 import PackageDetails from './PackageDetails';
 
-import {SEARCH_API_URL} from '@/constants';
+import {SEARCH_API_URL, DETAILS_API_URL} from '@/constants';
 
 const PAGE_SIZE = 10;
 
@@ -80,7 +86,7 @@ export default {
     queryString() {
       if (this.queryString) {
         this.currentPage = 1;
-        this.getDataFromApi();
+        this.search();
       }
     }
   },
@@ -88,18 +94,23 @@ export default {
     changePagination(data) {
       if (this.currentPage !== data.page) {
         this.currentPage = data.page;
-        this.getDataFromApi();
+        this.search();
       }
     },
     changeItemsPerPage(number) {
       this.itemsPerPage = number;
-      this.getDataFromApi();
+      this.search();
     },
     clickRow(data) {
       store.commit('setPackageDetails', data);
       store.commit('setShowDialog', true);
+
+      axios.get(`${DETAILS_API_URL}/${data.name}`).then(res => {
+        store.commit('setPackageTags', res.data.tags);
+        store.commit('setPackageVersions', res.data.versions);
+      });
     },
-    getDataFromApi() {
+    search() {
       if (!this.queryString) {
         return;
       }

@@ -18,6 +18,8 @@ const store = new Vuex.Store({
                 npm: '',
                 homepage: '',
             },
+            tags: {},
+            versions: [],
             version: ''
         }
     },
@@ -27,6 +29,15 @@ const store = new Vuex.Store({
         },
         setPackageDetails(state, data) {
             state.packageDetailsInfo = data;
+        },
+        setPackageTags(state, data) {
+            state.packageDetailsInfo.tags = data;
+        },
+        setPackageVersions(state, data) {
+            state.packageDetailsInfo = {
+                ...state.packageDetailsInfo,
+                versions: data
+            }
         }
     }
 })

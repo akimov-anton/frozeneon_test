@@ -27,6 +27,7 @@
             text
             rounded
             class="my-2"
+            href="https://github.com/akimov-anton/frozeneon_test"
         >
           Author - Anton Akimov
         </v-btn>
